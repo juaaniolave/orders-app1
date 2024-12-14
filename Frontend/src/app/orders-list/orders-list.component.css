@@ -1,0 +1,57 @@
+/* src/app/orders-list/orders-list.component.css */
+.container {
+    font-family: Arial, sans-serif;
+  }
+  
+  h2 {
+    color: #0078d7;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th,
+  td {
+    padding: 8px 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #004085;
+    color: #fff;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f1f1f1;
+  }
+  
+  tbody tr.selected {
+    background-color: #cce5ff;
+  }
+  
+  a {
+    color: #0078d7;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  .new-order-btn {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .new-order-btn:hover {
+    background-color: #0056b3;
+  }
+  
