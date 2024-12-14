@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\juaan\\OneDrive\\Documents\\GitHub\\orders-app\\Backend\\orders-backend.csproj": {}
+    "C:\\Users\\juaan\\OneDrive\\Documents\\GitHub\\orders-app\\backend\\orders-backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\juaan\\OneDrive\\Documents\\GitHub\\orders-app\\Backend\\orders-backend.csproj": {
+    "C:\\Users\\juaan\\OneDrive\\Documents\\GitHub\\orders-app\\backend\\orders-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\juaan\\OneDrive\\Documents\\GitHub\\orders-app\\Backend\\orders-backend.csproj",
+        "projectUniqueName": "C:\\Users\\juaan\\OneDrive\\Documents\\GitHub\\orders-app\\backend\\orders-backend.csproj",
         "projectName": "orders-backend",
-        "projectPath": "C:\\Users\\juaan\\OneDrive\\Documents\\GitHub\\orders-app\\Backend\\orders-backend.csproj",
+        "projectPath": "C:\\Users\\juaan\\OneDrive\\Documents\\GitHub\\orders-app\\backend\\orders-backend.csproj",
         "packagesPath": "C:\\Users\\juaan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\juaan\\OneDrive\\Documents\\GitHub\\orders-app\\Backend\\obj\\",
+        "outputPath": "C:\\Users\\juaan\\OneDrive\\Documents\\GitHub\\orders-app\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\juaan\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -49,6 +49,10 @@
               "version": "[9.0.0, )"
             },
             "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
               "version": "[9.0.0, )"
             },

@@ -1,16 +1,15 @@
-// src/app/services/order.service.ts
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Order } from '../models/order.model';
-import { Observable, of } from 'rxjs';
+import { environment } from '../../environments/environment'
 
 @Injectable({ providedIn: 'root' })
 export class OrderService {
-  private orders: Order[] = [
-    { orderNumber: 1256789, customerName: 'John Smith', customerAddress: '5th Ave, New York', totalCost: 150, status: 'New' },
-    { orderNumber: 1256789, customerName: 'John Smith', customerAddress: '5th Ave, New York', totalCost: 150, status: 'New' },
-  ];
+  private apiUrl = `${environment.apiUrl}/orders`;
+  constructor(private http: HttpClient) {}
 
   getOrders(): Observable<Order[]> {
-    return of(this.orders); // Simulación de datos
+    return this.http.get<Order[]>(this.apiUrl);
   }
 }

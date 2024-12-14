@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "XbW2AP7wReyuqLEC70a2jEdfXyI/JP5ZxgukW+U55GY=",
+  "Source": "orders-backend",
+  "BasePath": "_content/orders-backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
