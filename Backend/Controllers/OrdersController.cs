@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend.Data;
-using Backend.Models.Classes;
-using System.Threading.Tasks;
 
 namespace OrdersApp.Controllers
 {
@@ -28,12 +26,17 @@ namespace OrdersApp.Controllers
                         SUM(p.Cost) AS TotalCost, 
                         s.Name AS Status
                     FROM [Order] o
-                    JOIN [Customer] c ON o.CustomerId = c.Id
-                    JOIN [OrderProduct] op ON o.Id = op.OrderId
-                    JOIN [Product] p ON op.ProductId = p.Id
-                    JOIN [Status] s ON s.Id = o.StatusId
+                    left JOIN [Customer] c ON o.CustomerId = c.Id
+                    left JOIN [OrderProduct] op ON o.Id = op.OrderId
+                    left JOIN [Product] p ON op.ProductId = p.Id
+                    left JOIN [Status] s ON s.Id = o.StatusId
                     GROUP BY o.Id, c.Name, c.Address, s.Name")
                 .ToListAsync();
+            foreach (var order in orders)
+            {
+                Console.WriteLine($"Id: {order.Id}, CustomerName: {order.CustomerName}, " +
+                      $"CustomerAddress: {order.CustomerAddress}, TotalCost: {order.TotalCost}, Status: {order.Status}");
+            }
 
             return Ok(orders);
         }
