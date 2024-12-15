@@ -1,6 +1,13 @@
-<!-- src/app/orders-list/orders-list.component.html -->
 <div class="container">
-    <h2>Orders</h2>
+  <div class="button-container">
+    <button (click)="Orders()" class="menu-btn">Orders</button>
+    <button (click)="products()" class="menu-btn">Products</button>
+    <button (click)="customers()" class="menu-btn">Customers</button>
+  </div>
+
+  <!-- Contenedor principal con recuadro -->
+  <div class="box">
+    <button (click)="newOrder()" class="new-order-btn">New Order</button>
     <table>
       <thead>
         <tr>
@@ -13,7 +20,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let order of orders; let i = index" [class.selected]="i === 1">
-          <td><a href="#">{{ order.orderNumber }}</a></td>
+          <td><a href="#">{{ order.id }}</a></td>
           <td>{{ order.customerName }}</td>
           <td>{{ order.customerAddress }}</td>
           <td>{{ order.totalCost | currency }}</td>
@@ -21,6 +28,5 @@
         </tr>
       </tbody>
     </table>
-    <button (click)="newOrder()" class="new-order-btn">New Order</button>
   </div>
-  
+</div>

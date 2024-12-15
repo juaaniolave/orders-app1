@@ -1,4 +1,3 @@
-// src/app/orders-list/orders-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Order } from '../models/order.model';
 import { OrderService } from '../services/order.service';
@@ -28,5 +27,17 @@ export class OrdersListComponent implements OnInit {
   newOrder() {
     // Acción para agregar una nueva orden
     alert('Redirect to New Order page!');
+  }
+  Orders() {
+    // Acción para agregar una nueva orden
+    alert('Redirect to Orders page!');
+  }
+  products() {
+    // Acción para agregar una nueva orden
+    alert('Redirect to Orders page!');
+  }
+  customers() {
+    // Acción para agregar una nueva orden
+    alert('Redirect to Orders page!');
   }
 }

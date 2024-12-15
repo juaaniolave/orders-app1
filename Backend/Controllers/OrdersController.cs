@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend.Data;
+using Backend.Models.Classes;
+using Backend.Data.Queries;
 
 namespace OrdersApp.Controllers
 {
@@ -18,26 +20,9 @@ namespace OrdersApp.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOrders()
         {
-            var orders = await _context.Order
-                .FromSqlRaw(@"
-                    SELECT o.Id, 
-                        c.Name AS CustomerName, 
-                        c.Address AS CustomerAddress, 
-                        SUM(p.Cost) AS TotalCost, 
-                        s.Name AS Status
-                    FROM [Order] o
-                    left JOIN [Customer] c ON o.CustomerId = c.Id
-                    left JOIN [OrderProduct] op ON o.Id = op.OrderId
-                    left JOIN [Product] p ON op.ProductId = p.Id
-                    left JOIN [Status] s ON s.Id = o.StatusId
-                    GROUP BY o.Id, c.Name, c.Address, s.Name")
+            var orders = await _context.Database
+                .SqlQueryRaw<OrderDTO>(OrderQueries.GetOrdersQuery)
                 .ToListAsync();
-            foreach (var order in orders)
-            {
-                Console.WriteLine($"Id: {order.Id}, CustomerName: {order.CustomerName}, " +
-                      $"CustomerAddress: {order.CustomerAddress}, TotalCost: {order.TotalCost}, Status: {order.Status}");
-            }
-
             return Ok(orders);
         }
     }
