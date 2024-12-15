@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
-import { OrdersListComponent } from './orders-list/orders-list.component';
 import { MenuComponent } from './menu/menu.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [OrdersListComponent, MenuComponent], // Importa MenuComponent aquí
+  imports: [MenuComponent, RouterModule], 
   template: `
-    <app-menu></app-menu> 
+<app-menu></app-menu> 
+<div class="content">
+  <router-outlet></router-outlet> 
+</div>
   `,
 })
 export class AppComponent {}

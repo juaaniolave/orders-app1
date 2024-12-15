@@ -21,3 +21,8 @@
   .menu-btn:hover {
     background-color: #0056b3;
   }
+  .active-btn {
+    background-color: white; /* Color blanco para el botón activo */
+    color: #0056b3;          /* Texto azul para el botón activo */
+    font-weight: bold;       /* Hace el texto más grueso */
+  }

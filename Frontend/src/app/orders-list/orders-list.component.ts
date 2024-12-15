@@ -3,6 +3,7 @@ import { Order } from '../models/order.model';
 import { OrderService } from '../services/order.service';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-orders-list',
   templateUrl: './orders-list.component.html',
@@ -27,17 +28,5 @@ export class OrdersListComponent implements OnInit {
   newOrder() {
     // Acción para agregar una nueva orden
     alert('Redirect to New Order page!');
-  }
-  Orders() {
-    // Acción para agregar una nueva orden
-    alert('Redirect to Orders page!');
-  }
-  products() {
-    // Acción para agregar una nueva orden
-    alert('Redirect to Orders page!');
-  }
-  customers() {
-    // Acción para agregar una nueva orden
-    alert('Redirect to Orders page!');
   }
 }
