@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Order } from '../models/order.model';
 import { environment } from '../../environments/environment'
-import { tap } from 'rxjs/operators';
 
 
 @Injectable({ providedIn: 'root' })
@@ -12,8 +11,6 @@ export class OrderService {
   constructor(private http: HttpClient) {}
 
   getOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(this.apiUrl).pipe(
-      tap((data) => console.log('Orders fetched:', data)) // Imprime los datos
-    );
+    return this.http.get<Order[]>(this.apiUrl);
   }
 }

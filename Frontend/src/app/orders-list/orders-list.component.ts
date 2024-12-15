@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Order } from '../models/order.model';
-import { OrderService } from '../services/order.service';
 import { CommonModule } from '@angular/common';
-
+import { OrderService } from '../services/order.service';
+import { Order } from '../models/order.model';
 
 @Component({
   selector: 'app-orders-list',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './orders-list.component.html',
   styleUrls: ['./orders-list.component.css'],
-  imports: [CommonModule]
 })
 export class OrdersListComponent implements OnInit {
-  orders: Order[] = [];
+  orders: Order[] = []; // Lista de órdenes inicializada vacía
 
   constructor(private orderService: OrderService) {}
 
@@ -21,12 +21,8 @@ export class OrdersListComponent implements OnInit {
 
   loadOrders() {
     this.orderService.getOrders().subscribe((data) => {
-      this.orders = data;
+      this.orders = data; // Actualiza la lista con los datos del backend
     });
   }
-
-  newOrder() {
-    // Acción para agregar una nueva orden
-    alert('Redirect to New Order page!');
-  }
 }
+
