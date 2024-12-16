@@ -1,0 +1,24 @@
+<div class="container">
+    
+    
+    <div class="box">
+        <h1 class="title">Customers</h1>
+        <button (click)="newCustomer()" class="new-btn">New Customer</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Customer Name</th>
+            <th>Customer Address</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let customer of customers; let i = index" [class.selected]="i === 1">
+              <td><a href="#">{{ customer.id }}</a></td>
+              <td>{{ customer.name }}</td>
+              <td>{{ customer.address }}</td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>

@@ -15,5 +15,21 @@ LEFT JOIN OrderProduct op ON o.Id = op.OrderId
 LEFT JOIN Product p ON op.ProductId = p.Id
 LEFT JOIN Status s ON s.Id = o.StatusId
 GROUP BY o.Id, c.Name, c.Address, s.Name";
+
+        public static string GetProductsQuery => @"
+SELECT 
+    id,
+    name,
+    cost
+    from [product]";
+
+        public static string GetCustomersQuery => @"
+    SELECT 
+    id,
+    name,
+    address
+    from [customer]";
     }
 }
+
+

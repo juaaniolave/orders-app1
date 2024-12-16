@@ -1,0 +1,24 @@
+<div class="container">
+
+    
+    <div class="box">
+        <h1 class="title">Products</h1>
+        <button (click)="newProduct()" class="new-btn">New Product</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Product Name</th>
+            <th>Cost per unit</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products; let i = index" [class.selected]="i === 1">
+              <td><a href="#">{{ product.id }}</a></td>
+              <td>{{ product.name }}</td>
+              <td>{{ product.cost }}</td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>

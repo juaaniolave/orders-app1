@@ -7,8 +7,8 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [MenuComponent, RouterModule], 
   template: `
-<app-menu></app-menu> 
 <div class="content">
+<app-menu></app-menu> 
   <router-outlet></router-outlet> 
 </div>
   `,

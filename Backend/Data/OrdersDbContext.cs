@@ -2,6 +2,7 @@ namespace Backend.Data
 {
     using Microsoft.EntityFrameworkCore;
     using Backend.Models.Classes;
+    using System.Net.Http.Headers;
 
     public class OrdersDbContext : DbContext
     {
@@ -9,5 +10,7 @@ namespace Backend.Data
 
         public DbSet<Customer> Customer { get; set; }
         public DbSet<OrderDTO> Order { get; set; }
+
+        public DbSet<Product> Product { get; set; }
     }
 }
