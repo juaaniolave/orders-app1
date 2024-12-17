@@ -60,7 +60,7 @@ namespace OrdersApp.Controllers
                 await _context.SaveChangesAsync();
 
                 // Insertar productos relacionados en OrderProducts
-                foreach (var productDto in newOrderDto.Products)
+                foreach (var productDto in newOrderDto.Product)
                 {
                     var orderProduct = new OrderProduct
                     {
@@ -69,7 +69,7 @@ namespace OrdersApp.Controllers
                         Quantity = productDto.Quantity
                     };
 
-                    _context.OrderProducts.Add(orderProduct);
+                    _context.OrderProduct.Add(orderProduct);
                 }
 
                 await _context.SaveChangesAsync();

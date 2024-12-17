@@ -20,7 +20,7 @@ namespace OrdersApp.Controllers
         public async Task<IActionResult> GetProducts()
         {
             // Obtiene todos los productos directamente desde la tabla Products
-            var products = await _context.Products.ToListAsync();
+            var products = await _context.Product.ToListAsync();
 
             return Ok(products);
         }

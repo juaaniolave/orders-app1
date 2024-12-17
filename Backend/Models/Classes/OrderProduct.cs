@@ -1,6 +1,7 @@
+using System.ComponentModel.DataAnnotations.Schema;
 namespace Backend.Models.Classes
 {
-
+    [Table("OrderProduct")] // Aquí especificas el nombre exacto de la tabla en la base de datos
     public class OrderProduct
     {
         public int Id { get; set; }

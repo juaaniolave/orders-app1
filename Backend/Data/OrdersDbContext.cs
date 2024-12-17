@@ -8,12 +8,12 @@ namespace Backend.Data
         public OrdersDbContext(DbContextOptions<OrdersDbContext> options) : base(options) { }
 
         // Entidades mapeadas a tablas
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Customer> Customer { get; set; }
 
         public DbSet<Order> Orders { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Product> Product { get; set; }
         public DbSet<Status> Status { get; set; }
-        public DbSet<OrderProduct> OrderProducts { get; set; } // Tabla intermedia
+        public DbSet<OrderProduct> OrderProduct { get; set; } // Tabla intermedia
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,12 +42,12 @@ namespace Backend.Data
 
             modelBuilder.Entity<OrderProduct>()
                 .HasOne(op => op.Order)
-                .WithMany(o => o.OrderProducts)
+                .WithMany(o => o.OrderProduct)
                 .HasForeignKey(op => op.OrderId);
 
             modelBuilder.Entity<OrderProduct>()
                 .HasOne(op => op.Product)
-                .WithMany(p => p.OrderProducts)
+                .WithMany(p => p.OrderProduct)
                 .HasForeignKey(op => op.ProductId);
         }
     }

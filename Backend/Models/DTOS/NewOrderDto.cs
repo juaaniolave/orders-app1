@@ -10,7 +10,7 @@ namespace Backend.Models.DTOS
         public string Comment { get; set; }           // Comentarios
 
         // Lista de productos con ID y cantidad
-        public List<ProductDto> Products { get; set; }
+        public List<ProductDto> Product { get; set; }
     }
 
 

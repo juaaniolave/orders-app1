@@ -12,7 +12,7 @@ namespace Backend.Data.Queries
             return await context.Orders
                 .Include(o => o.Customer)         // Relación con Customer
                 .Include(o => o.Status)           // Relación con Status
-                .Include(o => o.OrderProducts)    // Relación con OrderProducts
+                .Include(o => o.OrderProduct)    // Relación con OrderProducts
                     .ThenInclude(op => op.Product) // Relación con Product dentro de OrderProducts
                 .Select(o => new OrderDto
                 {
@@ -20,7 +20,7 @@ namespace Backend.Data.Queries
                     CustomerName = o.Customer != null ? o.Customer.Name : "No Name",
                     CustomerAddress = o.Customer != null ? o.Customer.Address : "No Address",
                     Status = o.Status != null ? o.Status.Name : "No Status",
-                    TotalCost = o.OrderProducts.Sum(op => op.Product.Cost * op.Quantity)
+                    TotalCost = o.OrderProduct.Sum(op => op.Product.Cost * op.Quantity)
                 })
                 .ToListAsync();
         }
@@ -28,7 +28,7 @@ namespace Backend.Data.Queries
         // Obtener lista de productos
         public static async Task<List<ProductDto>> GetProductsAsync(OrdersDbContext context)
         {
-            return await context.Products
+            return await context.Product
                 .Select(p => new ProductDto
                 {
                     Id = p.Id,
@@ -41,7 +41,7 @@ namespace Backend.Data.Queries
         // Obtener lista de clientes
         public static async Task<List<CustomerDto>> GetCustomersAsync(OrdersDbContext context)
         {
-            return await context.Customers
+            return await context.Customer
                 .Select(c => new CustomerDto
                 {
                     Id = c.Id,
@@ -80,14 +80,14 @@ namespace Backend.Data.Queries
             await context.SaveChangesAsync();
 
             // Insertar productos relacionados con la orden
-            var orderProducts = orderDto.Products.Select(product => new OrderProduct
+            var orderProduct = orderDto.Product.Select(product => new OrderProduct
             {
                 OrderId = order.Id,
                 ProductId = product.Id,
                 Quantity = product.Quantity
             }).ToList();
 
-            context.OrderProducts.AddRange(orderProducts);
+            context.OrderProduct.AddRange(orderProduct);
             await context.SaveChangesAsync();
 
             return order.Id; // Retorna el ID de la orden creada

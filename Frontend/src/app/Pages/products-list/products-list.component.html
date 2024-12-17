@@ -14,8 +14,8 @@
             <tr *ngFor="let product of products; let i = index" [class.selected]="i === 1">
               <td>{{ product.id }}</td>
               <td>{{ product.name }}</td>
-              <td>{{ product.cost }}</td>
-            </tr>
+              <td>{{ product.cost | currency }}</td>
+            </tr> 
           </tbody>
       </table>
   </div>

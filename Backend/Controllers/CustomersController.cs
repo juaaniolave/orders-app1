@@ -20,7 +20,7 @@ namespace OrdersApp.Controllers
         public async Task<IActionResult> GetCustomers()
         {
             // Utilizando Entity Framework para obtener los datos de la tabla Customers
-            var customers = await _context.Customers
+            var customers = await _context.Customer
                 .Select(c => new CustomerDto
                 {
                     Id = c.Id,
