@@ -1,5 +1,4 @@
 <div class="container">
-  <div class="box">
     <h1 class="title">Orders</h1>
     <button (click)="newOrder()" class="new-btn">New Order</button>
     <table>
@@ -14,7 +13,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let order of orders; let i = index" [class.selected]="i === 1">
-          <td><a href="#">{{ order.id }}</a></td>
+          <td>{{ order.id }}</td>
           <td>{{ order.customerName }}</td>
           <td>{{ order.customerAddress }}</td>
           <td>{{ order.totalCost | currency }}</td>
@@ -22,5 +21,4 @@
         </tr>
       </tbody>
     </table>
-  </div>
 </div>

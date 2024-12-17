@@ -2,21 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderService } from '../../services/order.service';
 import { Order } from '../../models/order.model';
-import { NewOrderComponent } from './new-order/new-order.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orders-list',
-  imports: [CommonModule, NewOrderComponent],
+  imports: [CommonModule],
   templateUrl: './orders-list.component.html',
   styleUrl: './orders-list.component.css',
 })
 export class OrdersListComponent implements OnInit {
-  orders: Order[] = []; // Lista de órdenes inicializada vacía
+  orders: Order[] = [];
+  newOrderRoute: string = 'new-order';
   
-  showNewOrderForm = false; // Controla la visibilidad del componente
+  constructor(private orderService: OrderService, private router: Router) {}
 
-  constructor(private orderService: OrderService) {}
-
+  
   ngOnInit() {
     this.loadOrders();
   }
@@ -27,8 +27,9 @@ export class OrdersListComponent implements OnInit {
     });
   }
 
+
   newOrder(){
-    
+    this.router.navigate([this.newOrderRoute])
   }
 }
 

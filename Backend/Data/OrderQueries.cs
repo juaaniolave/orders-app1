@@ -1,35 +1,96 @@
+using Backend.Models.Classes;
+using Microsoft.EntityFrameworkCore;
+using Backend.Models.DTOS;
+
 namespace Backend.Data.Queries
 {
     public static class OrderQueries
     {
-        public static string GetOrdersQuery => @"
-SELECT 
-    o.Id, 
-    ISNULL(c.Name, 'No Name') AS CustomerName, 
-    ISNULL(c.Address, 'No Address') AS CustomerAddress,
-    ISNULL(SUM(p.Cost), 0) AS TotalCost,
-    ISNULL(s.Name, 'No Status') AS Status
-FROM [Order] o
-LEFT JOIN Customer c ON o.CustomerId = c.Id
-LEFT JOIN OrderProduct op ON o.Id = op.OrderId
-LEFT JOIN Product p ON op.ProductId = p.Id
-LEFT JOIN Status s ON s.Id = o.StatusId
-GROUP BY o.Id, c.Name, c.Address, s.Name";
+        // Obtener lista de órdenes con datos relacionados (Customer, Products, Status)
+        public static async Task<List<OrderDto>> GetOrdersAsync(OrdersDbContext context)
+        {
+            return await context.Orders
+                .Include(o => o.Customer)         // Relación con Customer
+                .Include(o => o.Status)           // Relación con Status
+                .Include(o => o.OrderProducts)    // Relación con OrderProducts
+                    .ThenInclude(op => op.Product) // Relación con Product dentro de OrderProducts
+                .Select(o => new OrderDto
+                {
+                    Id = o.Id,
+                    CustomerName = o.Customer != null ? o.Customer.Name : "No Name",
+                    CustomerAddress = o.Customer != null ? o.Customer.Address : "No Address",
+                    Status = o.Status != null ? o.Status.Name : "No Status",
+                    TotalCost = o.OrderProducts.Sum(op => op.Product.Cost * op.Quantity)
+                })
+                .ToListAsync();
+        }
 
-        public static string GetProductsQuery => @"
-SELECT 
-    id,
-    name,
-    cost
-    from [product]";
+        // Obtener lista de productos
+        public static async Task<List<ProductDto>> GetProductsAsync(OrdersDbContext context)
+        {
+            return await context.Products
+                .Select(p => new ProductDto
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Cost = p.Cost
+                })
+                .ToListAsync();
+        }
 
-        public static string GetCustomersQuery => @"
-    SELECT 
-    id,
-    name,
-    address
-    from [customer]";
+        // Obtener lista de clientes
+        public static async Task<List<CustomerDto>> GetCustomersAsync(OrdersDbContext context)
+        {
+            return await context.Customers
+                .Select(c => new CustomerDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Address = c.Address
+                })
+                .ToListAsync();
+        }
+
+        // Obtener lista de estados
+        public static async Task<List<StatusDto>> GetStatusesAsync(OrdersDbContext context)
+        {
+            return await context.Status
+                .Select(s => new StatusDto
+                {
+                    Id = s.Id,
+                    Name = s.Name
+                })
+                .ToListAsync();
+        }
+
+        // Insertar una nueva orden
+        public static async Task<int> InsertOrderAsync(OrdersDbContext context, NewOrderDto orderDto)
+        {
+            // Crear la nueva orden
+            var order = new Order
+            {
+                CustomerId = orderDto.CustomerId,
+                StatusId = context.Status.FirstOrDefault(s => s.Name == orderDto.Status)?.Id ?? 1,
+                OrderDate = DateTime.Parse(orderDto.OrderDate),
+                Comment = orderDto.Comment
+            };
+
+            // Agregar la orden al contexto
+            context.Orders.Add(order);
+            await context.SaveChangesAsync();
+
+            // Insertar productos relacionados con la orden
+            var orderProducts = orderDto.Products.Select(product => new OrderProduct
+            {
+                OrderId = order.Id,
+                ProductId = product.Id,
+                Quantity = product.Quantity
+            }).ToList();
+
+            context.OrderProducts.AddRange(orderProducts);
+            await context.SaveChangesAsync();
+
+            return order.Id; // Retorna el ID de la orden creada
+        }
     }
 }
-
-

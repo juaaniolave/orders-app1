@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './products-list.component.css',
 })
 export class ProductsListComponent {
-    products: Product[] = []; // Lista de órdenes inicializada vacía
+    products: Product[] = []; 
   
     constructor(private productService: ProductService) {}
   
@@ -20,7 +20,7 @@ export class ProductsListComponent {
   
     loadProducts() {
       this.productService.getProducts().subscribe((data) => {
-        this.products = data; // Actualiza la lista con los datos del backend
+        this.products = data; 
       });
     }
 

@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Backend.Data;
-using Backend.Models.Classes;
 using Backend.Data.Queries;
 
 namespace OrdersApp.Controllers
@@ -20,10 +18,23 @@ namespace OrdersApp.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOrders()
         {
-            var orders = await _context.Database
-                .SqlQueryRaw<OrderDTO>(OrderQueries.GetOrdersQuery)
-                .ToListAsync();
-            return Ok(orders);
+            try
+            {
+                // Obtener las órdenes desde la base de datos usando EF
+                var orders = await OrderQueries.GetOrdersAsync(_context);
+
+                if (orders == null || orders.Count == 0)
+                {
+                    return NotFound("No orders found.");
+                }
+
+                return Ok(orders);
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }

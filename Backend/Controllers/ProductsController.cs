@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend.Data;
 using Backend.Models.Classes;
-using Backend.Data.Queries;
 
 namespace OrdersApp.Controllers
 {
@@ -20,9 +19,9 @@ namespace OrdersApp.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
-            var products = await _context.Database
-                .SqlQueryRaw<Product>(OrderQueries.GetProductsQuery)
-                .ToListAsync();
+            // Obtiene todos los productos directamente desde la tabla Products
+            var products = await _context.Products.ToListAsync();
+
             return Ok(products);
         }
     }

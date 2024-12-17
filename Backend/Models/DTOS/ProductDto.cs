@@ -1,11 +1,12 @@
-namespace Backend.Models.Classes
+namespace Backend.Models.DTOS
 {
-    public class Product
+    public class ProductDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Cost { get; set; }
-        public ICollection<OrderProduct> OrderProducts { get; set; }
+
+        public int Quantity { get; set; }
     }
 
 }

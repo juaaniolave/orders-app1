@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Backend.Data;
-using Backend.Models.Classes;
-using Backend.Data.Queries;
+using Backend.Models.DTOS;
 
 namespace OrdersApp.Controllers
 {
@@ -20,10 +19,17 @@ namespace OrdersApp.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCustomers()
         {
-            var Customers = await _context.Database
-                .SqlQueryRaw<Customer>(OrderQueries.GetCustomersQuery)
+            // Utilizando Entity Framework para obtener los datos de la tabla Customers
+            var customers = await _context.Customers
+                .Select(c => new CustomerDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    // Address = c.Address
+                })
                 .ToListAsync();
-            return Ok(Customers);
+
+            return Ok(customers);
         }
     }
 }

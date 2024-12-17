@@ -33,6 +33,8 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
+app.UseRouting();
+app.UseAuthorization();
 
 // Mapear controladores
 app.MapControllers();

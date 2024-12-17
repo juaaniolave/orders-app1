@@ -11,8 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 export class CustomersListComponent {
     customers: Customer[] = []; // Lista de órdenes inicializada vacía
-    showNewOrderForm = false; // Controla la visibilidad del componente
-    
+  
     constructor(private customerService: CustomerService) {}
   
     ngOnInit() {
@@ -25,13 +24,7 @@ export class CustomersListComponent {
       });
     }
 
-
     
-
-    // Función que muestra el formulario de nueva orden
-    newOrder() {
-      this.showNewOrderForm = !this.showNewOrderForm;
-    }
   newCustomer(){
     alert('New Customer!')
   }
