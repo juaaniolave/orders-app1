@@ -10,11 +10,13 @@
   <div class="form-group">
     <label>Customer:</label>
     <select [(ngModel)]="selectedCustomer">
+
       <option *ngFor="let c of customers" [value]="c.value">{{ c.label }}</option>
     </select>
 
     <label>Status:</label>
     <select [(ngModel)]="selectedStatus">
+
       <option *ngFor="let s of status" [value]="s.value">{{ s.label }}</option>
     </select>
   </div>
@@ -26,7 +28,7 @@
 
   <!-- Tabla de productos -->
   <div class="products-section">
-    <button class="add-product-btn">Add Products To Order</button>
+    <button (click)="openProductModal()" class="add-product-btn">Add Products To Order</button>
     <table>
       <thead>
         <tr>
@@ -37,7 +39,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of products; let i = index" >
+        <tr *ngFor="let product of products; let i = index">
           <td>{{ product.id }}</td>
           <td>{{ product.name }}</td>
           <td>
@@ -64,15 +66,25 @@
   <!-- Botones de acción -->
   <div class="actions">
     <button
-    class="save-btn"
-    (click)="saveOrder()"
-    [disabled]="isSaveDisabled()"
-    [ngClass]="{ 'disabled-btn': isSaveDisabled() }"
-  >
-    Save
-  </button>
+      class="save-btn"
+      (click)="saveOrder()"
+      [disabled]="isSaveDisabled()"
+      [ngClass]="{ 'disabled-btn': isSaveDisabled() }"
+    >
+      Save
+    </button>
     <button class="cancel-btn" (click)="router.navigate(['/orders'])">
       Cancel
     </button>
+  </div>
+
+  <!-- Modal de selección de productos -->
+  <div class="modal-backdrop" *ngIf="showProductModal">
+    <div class="modal">
+      <h3>Select Products</h3>
+      <app-select-products 
+        (productsSelected)="addSelectedProducts($event)">
+      </app-select-products>
+    </div>
   </div>
 </div>

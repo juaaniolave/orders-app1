@@ -7,11 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { NewOrderService } from '../../../services/new-order.service';
 import { Router } from '@angular/router';
 import { NewOrder } from '../../../models/newOrder.model';
+import { SelectProductsComponent } from '../../products-list/select-products/select-products.component';
 
 @Component({
   selector: 'app-new-order',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,SelectProductsComponent],
   templateUrl: './new-order.component.html',
   styleUrls: ['./new-order.component.css'],
 })
@@ -25,7 +26,16 @@ export class NewOrderComponent {
   selectedCustomer: string = '';
   selectedStatus: string = '';
   comment: string = '';
+  showProductModal = false; // Estado del modal
 
+  openProductModal() {
+    this.showProductModal = true;
+  }
+
+  addSelectedProducts(selectedProducts: Product[]) {
+    this.products.push(...selectedProducts);
+    this.showProductModal = false;
+  }
   constructor(
     private productService: ProductService,
     private newOrderService: NewOrderService,
@@ -36,7 +46,6 @@ export class NewOrderComponent {
   }
 
   ngOnInit() {
-    this.loadProducts();
     this.loadStatus();
     this.loadCustomers();
   }
@@ -47,7 +56,6 @@ export class NewOrderComponent {
       this.quantities = Array(this.products.length).fill(0);
     });
   }
-
   getCurrentDate(): string {
     const today = new Date();
     const year = today.getFullYear();
