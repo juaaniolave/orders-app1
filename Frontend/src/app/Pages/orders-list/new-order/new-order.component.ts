@@ -74,7 +74,6 @@ export class NewOrderComponent {
         orderDate: this.orderDate,
         customerId: this.selectedCustomer,
         status: this.selectedStatus,
-        totalCost: this.totalCost,
         comment: this.comment,
         products: this.products.map((product, index) => ({
           productId: product.id,

@@ -64,15 +64,15 @@ namespace Backend.Data.Queries
         }
 
         // Insertar una nueva orden
-        public static async Task<int> InsertOrderAsync(OrdersDbContext context, NewOrderDto orderDto)
+        public static async Task<int> InsertOrderAsync(OrdersDbContext context, NewOrderDto newOrderDto)
         {
             // Crear la nueva orden
             var order = new Order
             {
-                CustomerId = orderDto.CustomerId,
-                StatusId = context.Status.FirstOrDefault(s => s.Name == orderDto.Status)?.Id ?? 1,
-                OrderDate = DateTime.Parse(orderDto.OrderDate),
-                Comment = orderDto.Comment
+                CustomerId = newOrderDto.CustomerId,
+                StatusId = newOrderDto.StatusId,
+                OrderDate = DateTime.Parse(newOrderDto.OrderDate),
+                Comment = newOrderDto.Comment
             };
 
             // Agregar la orden al contexto
@@ -80,7 +80,7 @@ namespace Backend.Data.Queries
             await context.SaveChangesAsync();
 
             // Insertar productos relacionados con la orden
-            var orderProduct = orderDto.Product.Select(product => new OrderProduct
+            var orderProduct = newOrderDto.Product.Select(product => new OrderProduct
             {
                 OrderId = order.Id,
                 ProductId = product.Id,

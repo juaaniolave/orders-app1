@@ -44,6 +44,8 @@ namespace OrdersApp.Controllers
             if (newOrderDto == null)
                 return BadRequest("Order data is null.");
 
+            using var transaction = await _context.Database.BeginTransactionAsync();
+
             try
             {
                 // Crear una nueva instancia de Order
@@ -73,6 +75,7 @@ namespace OrdersApp.Controllers
                 }
 
                 await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
 
                 return Ok(new { message = "Order created successfully", orderId = order.Id });
             }
