@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NewOrderService } from '../../../services/new-order.service';
 import { Router } from '@angular/router';
+import { Order } from '../../../models/order.model';
 
 
 @Component({
@@ -70,20 +71,19 @@ export class NewOrderComponent {
     }
 
     saveOrder() {
-      const orderData = {
+      const orderData : Order =  {
         orderDate: this.orderDate,
         customerId: this.selectedCustomer,
-        status: this.selectedStatus,
+        statusId: this.selectedStatus,
         comment: this.comment,
-        products: this.products.map((product, index) => ({
-          productId: product.id,
+        product: this.products.map((product, index) => ({
+          id: product.id,
           quantity: this.quantities[index] || 0,
         })),
       };
       // Llamar al servicio para enviar la orden
       this.newOrderService.createOrder(orderData).subscribe({
         next: () => {
-          alert('Order successfully created!');
           this.router.navigate(['/orders']);
         },
         error: (err) => {
