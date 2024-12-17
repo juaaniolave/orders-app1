@@ -25,7 +25,7 @@
   }
   
   tbody tr:nth-child(even) {
-    background-color: #bbd2fd69;
+    background-color: #1d52b610;
   }
   
   tbody tr.selected {
@@ -78,24 +78,5 @@
     font-family: Arial, sans-serif;
     color: rgb(17, 115, 207);
   }
-  .disabled-btn {
-    background-color: #ccc; /* Color gris claro */
-    color: #666;           /* Color de texto más tenue */
-    cursor: not-allowed;   /* Cambia el cursor a no permitido */
-    opacity: 0.7;          /* Hace que se vea un poco translúcido */
-    pointer-events: none;  /* Evita interacción del mouse */
-  }
 
-.save-btn {
-  background-color: #0078d7;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.save-btn:hover {
-  background-color: #0056b3; /* Un tono más oscuro al pasar el mouse */
-}
   
