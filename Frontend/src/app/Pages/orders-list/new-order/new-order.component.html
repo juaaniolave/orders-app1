@@ -83,8 +83,10 @@
     <div class="modal">
       <h3>Select Products</h3>
       <app-select-products 
-        (productsSelected)="addSelectedProducts($event)">
-      </app-select-products>
+      *ngIf="showProductModal" 
+      [alreadySelectedProducts]="products" 
+      (productsSelected)="addSelectedProducts($event)">
+    </app-select-products>
     </div>
   </div>
 </div>

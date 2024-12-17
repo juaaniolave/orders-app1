@@ -2,17 +2,17 @@
     <table>
       <thead>
         <tr>
-          <th>Select</th>
           <th>Product Id</th>
           <th>Product Name</th>
           <th>Price</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of products">
-          <td>
-            <input type="checkbox" (change)="toggleProductSelection(product)">
-          </td>
+        <tr 
+          *ngFor="let product of filteredProducts" 
+          (click)="toggleProductSelection(product)"
+          [class.selected]="isProductSelected(product)"
+        >
           <td>{{ product.id }}</td>
           <td>{{ product.name }}</td>
           <td>{{ product.cost | currency }}</td>

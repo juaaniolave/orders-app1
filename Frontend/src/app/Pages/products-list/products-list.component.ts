@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common';
 })
 export class ProductsListComponent {
     products: Product[] = []; 
+    filteredProducts: Product[] = []; // Productos filtrados (se excluyen los seleccionados previamente)
+
   
     constructor(private productService: ProductService) {}
   

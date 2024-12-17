@@ -147,6 +147,7 @@ background-color: #0056b3; /* Un tono más oscuro al pasar el mouse */
 }
   
 .actions {
+  margin-top: 10px;
   display: flex;
   justify-content: flex-end;
   gap: 10px;
