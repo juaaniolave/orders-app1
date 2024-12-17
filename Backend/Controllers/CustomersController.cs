@@ -25,6 +25,7 @@ namespace OrdersApp.Controllers
                 {
                     Id = c.Id,
                     Name = c.Name,
+                    Address = c.Address
                     // Address = c.Address
                 })
                 .ToListAsync();

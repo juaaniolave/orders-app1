@@ -17,7 +17,6 @@ namespace OrdersApp.Controllers
             _context = context;
         }
 
-        // GET: api/neworder/statuses
         [HttpGet]
         public async Task<IActionResult> GetStatuses()
         {
