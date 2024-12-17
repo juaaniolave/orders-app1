@@ -1,5 +1,5 @@
 <div class="menu-container">
-  <button (click)="navigate('orders')" class="menu-btn">Orders</button>
-  <button (click)="navigate('products')" class="menu-btn">Products</button>
-  <button (click)="navigate('customers')" class="menu-btn">Customers</button>
+  <button routerLink="/orders" routerLinkActive="active-btn" (click)="navigate('orders')" class="menu-btn">Orders</button>
+  <button routerLink="/products" routerLinkActive="active-btn" (click)="navigate('products')" class="menu-btn">Products</button>
+  <button routerLink="/customers" routerLinkActive="active-btn" (click)="navigate('customers')" class="menu-btn">Customers</button>
 </div>

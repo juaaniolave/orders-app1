@@ -9,5 +9,5 @@ export const routes: Routes = [
   { path: 'products', component: ProductsListComponent },
   { path: 'customers', component: CustomersListComponent },
   { path: 'new-order', component: NewOrderComponent},
-  { path: '', redirectTo: 'index', pathMatch: 'full' } // Redirige por defecto
+  { path: '', redirectTo: 'orders', pathMatch: 'full' } // Redirige por defecto
 ];
