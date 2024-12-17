@@ -1,71 +1,78 @@
 <div class="new-order-container">
-    <h2 class="title">New Order</h2>
-  
-    <!-- Información de la orden -->
-    <div class="order-details">
-      <label>Order Date: <strong>{{ orderDate }}</strong></label>
-    </div>
-  
-    <!-- Selección de Customer y Status -->
-    <div class="form-group">
-      <label>Customer:</label>
-      <select [(ngModel)]="selectedCustomer">
-        <option>Select Customer</option>
-        <option *ngFor="let c of customers" [value]="c.value">{{ c.label }}</option>
-      </select>
-  
-      <label>Status:</label>
-      <select [(ngModel)]="selectedStatus">
-        <option value="">Select Status</option>
-        <option *ngFor="let s of status" [value]="s.value">{{ s.label }}</option>
-      </select>
-    </div>
-  
-    <!-- Total Cost -->
-    <div class="total-cost">
-      <strong>Total Cost: $</strong> <span>{{totalCost}}</span>
-    </div>
-  
-    <!-- Tabla de productos -->
-    <div class="products-section">
-      <button class="add-product-btn">Add Products To Order</button>
-      <table>
-        <thead>
-          <tr>
-            <th>Product Id</th>
-            <th>Product Name</th>
-            <th>Quantity</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let product of products; let i = index" [class.selected]="i === 1">
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>
-                    <input
-                    type="number"
-                    [(ngModel)]="quantities[i]"
-                    (input)="updateTotalCost()"
-                    min="0"
-                    style="width: 60px;"
-                    />
-                </td>
-                <td>{{ product.cost | currency }}</td>
-              </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <!-- Comentarios -->
-    <div class="comments">
-      <label>Comment:</label>
-      <textarea rows="4" cols="50"></textarea>
-    </div>
-  
-    <!-- Botones de acción -->
-    <div class="actions">
-        <button class="save-btn" (click)="saveOrder()">Save</button>
-        <button class="cancel-btn" (click)="router.navigate(['/orders'])">Cancel</button>
-    </div>
+  <h2 class="title">New Order</h2>
+
+  <!-- Información de la orden -->
+  <div class="order-details">
+    <label>Order Date: <strong>{{ orderDate }}</strong></label>
   </div>
+
+  <!-- Selección de Customer y Status -->
+  <div class="form-group">
+    <label>Customer:</label>
+    <select [(ngModel)]="selectedCustomer">
+      <option *ngFor="let c of customers" [value]="c.value">{{ c.label }}</option>
+    </select>
+
+    <label>Status:</label>
+    <select [(ngModel)]="selectedStatus">
+      <option *ngFor="let s of status" [value]="s.value">{{ s.label }}</option>
+    </select>
+  </div>
+
+  <!-- Total Cost -->
+  <div class="total-cost">
+    <strong>Total Cost: $</strong> <span>{{ totalCost }}</span>
+  </div>
+
+  <!-- Tabla de productos -->
+  <div class="products-section">
+    <button class="add-product-btn">Add Products To Order</button>
+    <table>
+      <thead>
+        <tr>
+          <th>Product Id</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products; let i = index" [class.selected]="i === 1">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>
+            <input
+              type="number"
+              [(ngModel)]="quantities[i]"
+              (input)="updateTotalCost()"
+              min="0"
+              style="width: 60px;"
+            />
+          </td>
+          <td>{{ product.cost | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Comentarios -->
+  <div class="comments">
+    <label>Comment:</label>
+    <textarea rows="4" cols="50" [(ngModel)]="comment"></textarea>
+  </div>
+
+  <!-- Botones de acción -->
+  <div class="actions">
+    <button
+    class="save-btn"
+    (click)="saveOrder()"
+    [disabled]="isSaveDisabled()"
+    [ngClass]="{ 'disabled-btn': isSaveDisabled() }"
+  >
+    Save
+  </button>
+    <button class="cancel-btn" (click)="router.navigate(['/orders'])">
+      Cancel
+    </button>
+  </div>
+</div>

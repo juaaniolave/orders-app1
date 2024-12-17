@@ -84,13 +84,32 @@
     cursor: pointer;
   }
   
-  .save-btn {
-    background-color: #28a745;
-    color: white;
-  }
-  
   .cancel-btn {
     background-color: #dc3545;
     color: white;
   }
+
+  .cancel-btn:hover {
+    background-color: #bb1e2e; /* Un tono más oscuro al pasar el mouse */
+  }
   
+  .disabled-btn {
+    background-color: #ccc; 
+    color: #666;         
+    cursor: not-allowed;  
+    opacity: 0.7;         
+    pointer-events: none; 
+  }
+
+.save-btn {
+  background-color: #0078d7;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background-color: #0056b3; /* Un tono más oscuro al pasar el mouse */
+}

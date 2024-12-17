@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let order of orders; let i = index" [class.selected]="i === 1">
+        <tr *ngFor="let order of orders; let i = index" >
           <td>{{ order.id }}</td>
           <td>{{ order.customerName }}</td>
           <td>{{ order.customerAddress }}</td>

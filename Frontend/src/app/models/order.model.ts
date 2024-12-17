@@ -1,9 +1,8 @@
-import {OrderProduct} from './OrderProduct'
 
 export interface Order {
-  orderDate: string;
-  customerId: string; // O number si el ID es numérico
-  statusId: string;   // O number si el ID es numérico
-  comment: string;
-  product: OrderProduct[];
+  id:number;
+  customerName: string;
+  customerAddress: string; // O number si el ID es numérico
+  status: string;   // O number si el ID es numérico
+  totalCost: number;
 }

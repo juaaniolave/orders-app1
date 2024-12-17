@@ -6,28 +6,32 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NewOrderService } from '../../../services/new-order.service';
 import { Router } from '@angular/router';
-import { Order } from '../../../models/order.model';
-
+import { NewOrder } from '../../../models/newOrder.model';
 
 @Component({
   selector: 'app-new-order',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './new-order.component.html',
-  styleUrls: ['./new-order.component.css']
+  styleUrls: ['./new-order.component.css'],
 })
 export class NewOrderComponent {
   orderDate: string;
-  products: Product[] = []; 
+  products: Product[] = [];
   totalCost: number = 0;
-  quantities: number[] = []; 
-  status: { value: string; label: string }[] = []; 
+  quantities: number[] = [];
+  status: { value: string; label: string }[] = [];
   customers: { value: string; label: string }[] = [];
   selectedCustomer: string = '';
   selectedStatus: string = '';
-  comment: string = ''; 
+  comment: string = '';
 
-  constructor(private productService: ProductService, private newOrderService : NewOrderService, private customerService: CustomerService, public router: Router) {
+  constructor(
+    private productService: ProductService,
+    private newOrderService: NewOrderService,
+    private customerService: CustomerService,
+    public router: Router
+  ) {
     this.orderDate = this.getCurrentDate();
   }
 
@@ -39,8 +43,8 @@ export class NewOrderComponent {
 
   loadProducts() {
     this.productService.getProducts().subscribe((data) => {
-      this.products = data; // Cargar los productos desde el backend
-      this.quantities = Array(this.products.length).fill(0); // Inicializar cantidades
+      this.products = data;
+      this.quantities = Array(this.products.length).fill(0);
     });
   }
 
@@ -57,40 +61,44 @@ export class NewOrderComponent {
       return sum + (this.quantities[index] || 0) * product.cost;
     }, 0);
   }
-    
-    loadStatus() {
-      this.newOrderService.getStatus().subscribe((data) => {
-        this.status = data; 
-      });
-    }
 
-    loadCustomers() {
-      this.customerService.getCustomersNames().subscribe((data) => {
-        this.customers = data; // Actualiza la lista con los datos del backend
-      });
-    }
+  loadStatus() {
+    this.newOrderService.getStatus().subscribe((data) => {
+      this.status = [{ value: '', label: 'Select Status' }, ...data];
+    });
+  }
 
-    saveOrder() {
-      const orderData : Order =  {
-        orderDate: this.orderDate,
-        customerId: this.selectedCustomer,
-        statusId: this.selectedStatus,
-        comment: this.comment,
-        product: this.products.map((product, index) => ({
-          id: product.id,
-          quantity: this.quantities[index] || 0,
-        })),
-      };
-      // Llamar al servicio para enviar la orden
-      this.newOrderService.createOrder(orderData).subscribe({
-        next: () => {
-          this.router.navigate(['/orders']);
-        },
-        error: (err) => {
-          console.error('Error creating order:', err);
-          alert('Failed to create order. Please try again.');
-        },
-      });
-    }
-  } 
+  loadCustomers() {
+    this.customerService.getCustomersNames().subscribe((data) => {
+      this.customers = [{ value: '', label: 'Select Customer' }, ...data];
+    });
+  }
 
+  // Método de validación para el botón Save
+  isSaveDisabled(): boolean {
+    return !this.selectedCustomer || !this.selectedStatus;
+  }
+
+  saveOrder() {
+    const orderData: NewOrder = {
+      orderDate: this.orderDate,
+      customerId: this.selectedCustomer,
+      statusId: this.selectedStatus,
+      comment: this.comment,
+      product: this.products.map((product, index) => ({
+        id: product.id,
+        quantity: this.quantities[index] || 0,
+      })),
+    };
+
+    this.newOrderService.createOrder(orderData).subscribe({
+      next: () => {
+        this.router.navigate(['/orders']);
+      },
+      error: (err) => {
+        console.error('Error creating order:', err);
+        alert('Failed to create order. Please try again.');
+      },
+    });
+  }
+}

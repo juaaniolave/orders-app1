@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment'
 import { map } from 'rxjs/operators';
-import { Order } from '../models/order.model';
+import { NewOrder } from '../models/newOrder.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class NewOrderService {
       );
     }
 
-    createOrder(order: Order): Observable<any> {
+    createOrder(order: NewOrder): Observable<any> {
       return this.http.post<any>(this.apiUrl, order);
     }
 }
